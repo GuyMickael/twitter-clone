@@ -2,14 +2,28 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 
 const CreatePostWizard = () => {
-  const {user} = useUser();
+  const {user, isLoaded: userLoaded} = useUser();
 
-  if (!user) return null;
+  if (!userLoaded) return (
+    <div className="flex border-b border-slate-400">
+    <Image 
+      src={""} 
+      width={60}
+      height={60}
+      alt="user photo" 
+      className="w-14 h-14 rounded-full m-3"
+    />
+    <input  
+      placeholder="Ecrivez un emoji !"
+      className="bg-transparent grow "
+    />
+  </div>
+  );
 
   return (
     <div className="flex border-b border-slate-400">
       <Image 
-        src={user.profileImageUrl} 
+        src={user?.profileImageUrl || ""} 
         width={60}
         height={60}
         alt="user photo" 

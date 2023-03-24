@@ -1,18 +1,12 @@
+import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Auth from "~/components/Auth";
 import CreatePostWizard from "~/components/CreatePostWizard";
-import PostView from "~/components/PostView";
-
-import { api, } from "~/utils/api";
+import Feed from "~/components/Feed";
 
 const Home: NextPage = () => {
-
-  const {data, isLoading} =  api.post.getAll.useQuery();
   
-  if (isLoading) return <div>Loading ...</div>
-  if (!data) return <div>Woops no data</div>
-
   return (
     <>
       <Head>
@@ -24,11 +18,7 @@ const Home: NextPage = () => {
         <Auth />
         <div className="w-full h-full md:max-w-2xl border-x border-slate-400">
           <CreatePostWizard />
-          <div className="flex flex-col">
-            {data?.map((fullPost) => (
-              <PostView {...fullPost} key={fullPost.post.id}/>
-              ))}
-          </div>  
+          <Feed />
         </div>
       </main>
     </>
