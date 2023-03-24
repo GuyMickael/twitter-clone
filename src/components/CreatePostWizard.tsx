@@ -1,4 +1,5 @@
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
 
 const CreatePostWizard = () => {
   const {user} = useUser();
@@ -7,8 +8,10 @@ const CreatePostWizard = () => {
 
   return (
     <div className="flex border-b border-slate-400">
-      <img 
+      <Image 
         src={user.profileImageUrl} 
+        width={60}
+        height={60}
         alt="user photo" 
         className="w-14 h-14 rounded-full m-3"
       />
