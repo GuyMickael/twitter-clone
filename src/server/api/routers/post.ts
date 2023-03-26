@@ -22,6 +22,7 @@ export const postRouter = createTRPCRouter({
     // First we get all posts
     const posts = await ctx.prisma.post.findMany({
       take: 100,
+      orderBy: [{ createdAt: "desc" }]
     });
 
     // Then we get all users to fetch their image and name
@@ -46,7 +47,7 @@ export const postRouter = createTRPCRouter({
       content: z.string().emoji().nonempty().max(280)
     })
   ).mutation(async ({ ctx, input }) => {
-    const authorId = ctx.session.id;
+    const authorId = ctx.userId;
 
     const post = await ctx.prisma.post.create({data: {authorId, content: input.content}});
 
