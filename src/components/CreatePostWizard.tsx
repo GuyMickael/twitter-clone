@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 const CreatePostWizard = () => {
   const {user, isLoaded: userLoaded} = useUser();
 
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
   const ctx = api.useContext();
 
   const {mutate: createPost, isLoading: isPosting} = api.post.create.useMutation({
